@@ -83,6 +83,21 @@ output_full_values_norm = "../data/full-results/norm-full-values2015.txt"
 # normalizeNumbers(output_full_values, output_full_values_norm)
 
 
+def reduceDotsAndSpaces(input_file, output_file):
+    with io.open(input_file, "r") as input:
+        with io.open(output_file, "w") as output:
+            for line in input:
+                values = line.split(";")
+                for value in values:
+                    new_value_dots = re.sub('\.(?=(?:(?:\d*)(?:\.)))', '', value)
+                    new_value = re.sub('\s', '', new_value_dots)
+                    output.write(new_value)
+                    output.write(";")
+
+output_full_values_norm = "../data/full-results/norm-full-values2015.txt"
+output_full_values_norm_reduced = "../data/full-results/norm-full-values2015-reduced.txt"
+reduceDotsAndSpaces(output_full_values_norm, output_full_values_norm_reduced)
+
 # normalize numbers with shortcuts
 def normalizeShortcuts(input_file, output_file):
     with io.open(input_file, "r") as input:
