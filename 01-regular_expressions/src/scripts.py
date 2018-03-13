@@ -94,9 +94,9 @@ def reduceDotsAndSpaces(input_file, output_file):
                     output.write(new_value)
                     output.write(";")
 
-output_full_values_norm = "../data/full-results/norm-full-values2015.txt"
-output_full_values_norm_reduced = "../data/full-results/norm-full-values2015-reduced.txt"
-reduceDotsAndSpaces(output_full_values_norm, output_full_values_norm_reduced)
+# output_full_values_norm = "../data/full-results/norm-full-values2015.txt"
+# output_full_values_norm_reduced = "../data/full-results/norm-full-values2015-reduced.txt"
+# reduceDotsAndSpaces(output_full_values_norm, output_full_values_norm_reduced)
 
 # normalize numbers with shortcuts
 def normalizeShortcuts(input_file, output_file):
@@ -232,5 +232,10 @@ def getJudgmentsNumByWord(jsons_dir, output_dir):
 # matchingJudgments = getJudgmentsNumByWord(jsons_dir_full, "../data/json-trial/article-results.txt")
 # print("Judgements from 2015 containing word: ", matchingJudgments)
 # Judgements from 2015 containing word:  17767
+
+
+
+
+
 
 print("DONE")
