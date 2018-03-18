@@ -1,0 +1,29 @@
+PJN zad 1
+
+Dominik Góralczyk	2015
+
+TextContent - tresc orzeczenia
+
+Bierzemy wartosci z zlotych, uwzgledniamy tylko liczbowe, ale  5mln,mld,tys znormalizowac
+Uwzglednic spacje miedzy cyframi
+
+Regexy - rubular
+
+check: Unsupervised Sentiment Neuron
+
+(\d)(\d|\W)*(zł|zl)
+
+regex matchujący wszystkie kwoty (słownie) zł
+(\d)(\d|\W)*(\(.{1,100}\))?(\s)?(zł|zl)
+
+
+skróty tys \ mln \ mld
+\d+(\s?)(tys.\s|tys\s|mln\s|mln.\s|mld\s|mld.\s)(\s?)(zł|zl)
+
+
+całę słowo za liczba
+
+name entity recognizer NER - narzędzia wyspecjalizowane do rozpoznawania nazw własnych
+godziny konsultacji: 17-18:30
+
+

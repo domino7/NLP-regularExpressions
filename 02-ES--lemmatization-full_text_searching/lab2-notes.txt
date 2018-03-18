@@ -1,0 +1,113 @@
+ZAD.2.
+
+silniki wyszukiwania pełnotesktowego
+odwrócony indeks - tokeny na każdy słowo ala -> (1,2,5) (dokument, start, koniec)
+możemy skonfigurować sposób przetwarzania dokumentów, sposób dzielenia na tokeny itp
+
+-problemy wieloznaczności - podwójne rejestrowanie
+
+
+skonfigurować analizator: standard tokenizer i morfologic?
+zdefiniować indeks (coś jak tabela w bazie danych)
+żeby pole zawierające treść orzeczenia stosowało tokenizator
+
+OKREŚLIĆ strukture indeksu ZANIM załadujemy dane koniecznie!
+
+ES_CONFIGURATION
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "pl_analyzer": {
+          "type":      "custom",
+          "tokenizer": "standard",
+          "filter": ["morfologik_stem"]
+        }
+      }
+    }
+  }
+}
+
+
+
+{ "settings": {
+    "analysis": {
+      "analyzer": {
+        "pl_analyzer": {
+          "type":      "custom",
+          "tokenizer": "standard",
+          "filter": ["morfologik_stem"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "judgement" : {
+      "properties" : {
+        "content" : {
+          "type" :    "text",
+          "analyzer": "pl_analyzer"
+        },
+        "date" : {
+          "type" :   "date"
+        },
+        "signature" : {
+          "type" :   "keyword"
+        },
+        "judges" : {
+        	"type" :   "text",
+        	"fields": {
+                  "judge": {
+                     "type": "text"
+                  }
+            }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+{
+    "judgements6": {
+        "mappings": {
+            "judgement": {
+                "properties": {
+                    "content": {
+                        "type": "text",
+                        "analyzer": "pl_analyzer"
+                    },
+                    "date": {
+                        "type": "date"
+                    },
+                    "judges": {
+                        "type": "text",
+                        "fields": {
+                            "judge": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "signature": {
+                        "type": "keyword"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+{
+    "content" : "hej szukam telewizorów i meczów",
+    "date" : "2009-11-15",
+    "judges" : ["judge1", "judge2"]
+}
+
+counter:  56078
+
+
+
+
