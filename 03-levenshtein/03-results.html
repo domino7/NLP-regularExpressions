@@ -11773,7 +11773,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -11996,6 +11996,221 @@ div#notebook {
 >
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Levenstein">Levenstein<a class="anchor-link" href="#Levenstein">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">createSetOfAllWords</span><span class="p">():</span>
+    <span class="n">morfologic_dir</span> <span class="o">=</span> <span class="s2">&quot;polimorfologik-2/polimorfologik-2.1.txt&quot;</span>
+    <span class="n">morfologic_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">morfologic_dir</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">basic_word</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">morfologic_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">forms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">morfologic_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">all_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">basic_word</span> <span class="o">|</span> <span class="n">forms</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">all_words</span>
+
+<span class="k">def</span> <span class="nf">get</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">correct_words</span> <span class="o">=</span> <span class="n">createSetOfAllWords</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="k">def</span> <span class="nf">getIncorrectWords</span><span class="p">():</span>
+    <span class="n">freq_list_dir</span> <span class="o">=</span> <span class="s2">&quot;data/results2015.csv&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">freq_list_dir</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+        <span class="n">freq_list</span> <span class="o">=</span> <span class="p">{</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">}</span>
+    <span class="n">incorrect_words</span> <span class="o">=</span> <span class="n">freq_list</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">-</span> <span class="n">correct_words</span>
+    <span class="k">return</span> <span class="n">incorrect_words</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">incorrect_set</span> <span class="o">=</span> <span class="n">getIncorrectWords</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of incorrect words: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">incorrect_set</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Number of incorrect words:  69895
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">incorrect_set</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;moczowodowy&#39;, &#39;codification&#39;, &#39;procendendo&#39;, &#39;bimbo&#39;, &#39;hyper&#39;, &#39;wszytskim&#39;, &#39;zass&#39;, &#39;iudicatae&#39;, &#39;legitymizacyjną&#39;, &#39;oswiadczenie&#39;, &#39;bradykalie&#39;, &#39;oznaczalne&#39;, &#39;irrelewatne&#39;, &#39;jacha&#39;, &#39;przekompilowany&#39;, &#39;tlif&#39;, &#39;transpłciowych&#39;, &#39;carescape&#39;, &#39;rzepin&#39;, &#39;billenium&#39;, &#39;neuroboreliozie&#39;, &#39;wyszków&#39;, &#39;dwuczujnikowe&#39;, &#39;demokra&#39;, &#39;aterialnego&#39;, &#39;zwb&#39;, &#39;śmiechowicz&#39;, &#39;quint&#39;, &#39;sku&#39;, &#39;realizownaej&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">editdistance</span> <span class="k">as</span> <span class="nn">ed</span>
+
+<span class="k">def</span> <span class="nf">findCorrectWords</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">w1</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">neighboring_words</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">not_found</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">not_found</span><span class="p">:</span>         
+            <span class="n">neighboring_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w2</span> <span class="k">for</span> <span class="n">w2</span> <span class="ow">in</span> <span class="n">correct_words</span> <span class="k">if</span> <span class="n">ed</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">thresh</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">neighboring_words</span><span class="p">:</span>
+                <span class="n">thresh</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">not_found</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;original: &quot;</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">correct: &quot;</span><span class="p">,</span> <span class="n">neighboring_words</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">distance: &quot;</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">findCorrectWords</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>original:  moczowodowy 	correct:  [&#39;moczowodowi&#39;] 	distance:  1
+original:  codification 	correct:  [&#39;modyfikator&#39;, &#39;kodyfikator&#39;, &#39;corporation&#39;, &#39;bonifikatom&#39;, &#39;bonifikato&#39;] 	distance:  5
+original:  procendendo 	correct:  [&#39;procedencjo&#39;] 	distance:  3
+original:  bimbo 	correct:  [&#39;bimba&#39;, &#39;bombo&#39;, &#39;bambo&#39;, &#39;bibo&#39;, &#39;limbo&#39;, &#39;bimo&#39;] 	distance:  1
+original:  hyper 	correct:  [&#39;typer&#39;] 	distance:  1
+original:  wszytskim 	correct:  [&#39;wszytkom&#39;, &#39;wezyrskim&#39;, &#39;iszymskim&#39;, &#39;Uszyńskim&#39;, &#39;wszystkim&#39;, &#39;wszytki&#39;] 	distance:  2
+original:  zass 	correct:  [&#39;bass&#39;, &#39;yass&#39;, &#39;hass&#39;, &#39;pass&#39;, &#39;zassę&#39;, &#39;jass&#39;, &#39;lass&#39;, &#39;zassą&#39;, &#39;Hass&#39;, &#39;zasp&#39;] 	distance:  1
+original:  iudicatae 	correct:  [&#39;umiatam&#39;, &#39;indiańce&#39;, &#39;furiatce&#39;, &#39;uniata&#39;, &#39;umiatał&#39;, &#39;jubilata&#39;, &#39;dicta&#39;, &#39;furiata&#39;, &#39;indosata&#39;, &#39;umiatane&#39;, &#39;iluminata&#39;, &#39;unikata&#39;, &#39;bufiata&#39;, &#39;umiata&#39;, &#39;Buriatce&#39;, &#39;kudłate&#39;, &#39;idiota&#39;, &#39;Kuriata&#39;, &#39;jubilatce&#39;, &#39;audialne&#39;, &#39;umiataj&#39;, &#39;pucata&#39;, &#39;musicale&#39;, &#39;pucate&#39;, &#39;pizzicata&#39;, &#39;bufiate&#39;, &#39;udatne&#39;, &#39;kudłata&#39;, &#39;umiatać&#39;, &#39;Buriata&#39;, &#39;idiotce&#39;] 	distance:  4
+original:  legitymizacyjną 	correct:  [&#39;legitymacyjną&#39;, &#39;legitymizacją&#39;] 	distance:  2
+original:  oswiadczenie 	correct:  [&#39;oświadczenie&#39;] 	distance:  1
+original:  bradykalie 	correct:  [&#39;radykalie&#39;] 	distance:  1
+original:  oznaczalne 	correct:  [&#39;oznaczane&#39;] 	distance:  1
+original:  irrelewatne 	correct:  [&#39;irrelewantne&#39;] 	distance:  1
+original:  jacha 	correct:  [&#39;Kacha&#39;, &#39;łacha&#39;, &#39;pacha&#39;, &#39;wacha&#39;, &#39;jucha&#39;, &#39;gacha&#39;, &#39;dacha&#39;, &#39;Bacha&#39;, &#39;Lacha&#39;, &#39;jacht&#39;, &#39;lacha&#39;, &#39;macha&#39;, &#39;bacha&#39;, &#39;facha&#39;, &#39;jacza&#39;, &#39;Sacha&#39;, &#39;Macha&#39;, &#39;acha&#39;, &#39;Wacha&#39;, &#39;jacka&#39;, &#39;Jacha&#39;, &#39;tacha&#39;, &#39;żacha&#39;] 	distance:  1
+original:  przekompilowany 	correct:  [&#39;przekopiowany&#39;, &#39;przekomponowany&#39;, &#39;przekombinowany&#39;] 	distance:  2
+original:  tlif 	correct:  [&#39;klif&#39;, &#39;tlić&#39;, &#39;tli&#39;, &#39;tlił&#39;, &#39;glif&#39;, &#39;tlij&#39;] 	distance:  1
+original:  transpłciowych 	correct:  [&#39;transportowych&#39;] 	distance:  3
+original:  carescape 	correct:  [&#39;moresce&#39;, &#39;chrustane&#39;, &#39;caracie&#39;, &#39;Parecie&#39;, &#39;karesami&#39;, &#39;ciesane&#39;, &#39;ceresanie&#39;, &#39;ceresami&#39;, &#39;carisma&#39;, &#39;carioce&#39;, &#39;wareska&#39;, &#39;zapeszane&#39;, &#39;harcapie&#39;, &#39;picarescami&#39;, &#39;carskie&#39;, &#39;ceresan&#39;, &#39;carismie&#39;, &#39;mauresce&#39;, &#39;karesowane&#39;, &#39;harcapy&#39;, &#39;carska&#39;, &#39;ciareczce&#39;, &#39;marasce&#39;, &#39;jareczce&#39;, &#39;Wareckie&#39;, &#39;ceresach&#39;, &#39;Gareckie&#39;, &#39;córeczce&#39;, &#39;farelce&#39;, &#39;karetce&#39;, &#39;karetcie&#39;, &#39;darejce&#39;, &#39;karencje&#39;, &#39;wareskie&#39;, &#39;pascale&#39;, &#39;Karelce&#39;, &#39;kareciane&#39;, &#39;harcapem&#39;, &#39;pareczce&#39;, &#39;karesuje&#39;, &#39;carismami&#39;, &#39;crescend&#39;, &#39;żareckie&#39;, &#39;ceresie&#39;, &#39;karosaże&#39;, &#39;Jareckie&#39;, &#39;nadesłane&#39;, &#39;zaruszane&#39;, &#39;mescale&#39;, &#39;jareckie&#39;, &#39;zalecane&#39;, &#39;Teresce&#39;, &#39;ceresany&#39;, &#39;czareczce&#39;, &#39;caryce&#39;, &#39;carewicze&#39;, &#39;arece&#39;, &#39;Mareckie&#39;, &#39;warescy&#39;, &#39;naruszane&#39;, &#39;cariocach&#39;, &#39;czesane&#39;, &#39;areszcie&#39;, &#39;cadecie&#39;, &#39;harcapu&#39;, &#39;ceresanu&#39;, &#39;cassate&#39;, &#39;Dareckie&#39;, &#39;tarenckie&#39;, &#39;karenaże&#39;, &#39;cariocami&#39;, &#39;Narewce&#39;, &#39;kresce&#39;, &#39;hareszcie&#39;, &#39;dareńce&#39;, &#39;trescne&#39;, &#39;sarence&#39;, &#39;carnivale&#39;, &#39;picaresce&#39;, &#39;arenale&#39;, &#39;mareckie&#39;, &#39;baretce&#39;, &#39;nareszcie&#39;, &#39;cacane&#39;, &#39;karesach&#39;, &#39;marsale&#39;, &#39;karecie&#39;, &#39;tareczce&#39;, &#39;carscy&#39;, &#39;Marszale&#39;, &#39;zarzucane&#39;, &#39;córeńce&#39;, &#39;picarescach&#39;, &#39;zalesiane&#39;, &#39;carioca&#39;, &#39;picaresca&#39;, &#39;areale&#39;, &#39;karesujże&#39;, &#39;Pascale&#39;, &#39;narzucane&#39;, &#39;karesie&#39;, &#39;carismach&#39;, &#39;harcap&#39;, &#39;apresce&#39;, &#39;carycach&#39;, &#39;jarence&#39;, &#39;carycami&#39;, &#39;ceresanem&#39;, &#39;tresce&#39;, &#39;carstwie&#39;, &#39;wareckie&#39;, &#39;caryca&#39;, &#39;zarastane&#39;] 	distance:  4
+original:  rzepin 	correct:  [&#39;czepin&#39;, &#39;rzepik&#39;, &#39;rzepie&#39;] 	distance:  1
+original:  billenium 	correct:  [&#39;millenium&#39;] 	distance:  1
+original:  neuroboreliozie 	correct:  [&#39;euroregionie&#39;, &#39;boreliozie&#39;, &#39;neurobiologie&#39;, &#39;nekrobiozie&#39;, &#39;neurohormonie&#39;] 	distance:  5
+original:  wyszków 	correct:  [&#39;Pyszków&#39;, &#39;dyszków&#39;, &#39;Tyszków&#39;, &#39;wyszkól&#39;, &#39;Ryszków&#39;, &#39;Myszków&#39;, &#39;Wyszków&#39;] 	distance:  1
+original:  dwuczujnikowe 	correct:  [&#39;nieczujnikowe&#39;, &#39;bezczujnikowe&#39;, &#39;czujnikowe&#39;] 	distance:  3
+original:  demokra 	correct:  [&#39;demokrat&#39;, &#39;demokr&#39;] 	distance:  1
+original:  aterialnego 	correct:  [&#39;arterialnego&#39;, &#39;atrialnego&#39;, &#39;materialnego&#39;] 	distance:  1
+original:  zwb 	correct:  [&#39;ząb&#39;, &#39;zwą&#39;, &#39;zwę&#39;, &#39;zwab&#39;, &#39;zob&#39;] 	distance:  1
+original:  śmiechowicz 	correct:  [&#39;Śmiechowicz&#39;] 	distance:  1
+original:  quint 	correct:  [&#39;bunt&#39;, &#39;suit&#39;, &#39;quest&#39;, &#39;pint&#39;, &#39;quanta&#39;, &#39;wint&#39;, &#39;junt&#39;, &#39;fint&#39;, &#39;ruino&#39;, &#39;Saint&#39;, &#39;ruiny&#39;, &#39;point&#39;, &#39;puent&#39;, &#39;ruinę&#39;, &#39;ruina&#39;, &#39;flint&#39;, &#39;funt&#39;, &#39;Juiny&#39;, &#39;ruiną&#39;, &#39;kwint&#39;, &#39;Clint&#39;, &#39;joint&#39;, &#39;punt&#39;, &#39;Quinn&#39;, &#39;runt&#39;, &#39;gwint&#39;, &#39;quiz&#39;, &#39;ruin&#39;, &#39;duant&#39;, &#39;quipu&#39;, &#39;Hunt&#39;, &#39;quizu&#39;, &#39;plint&#39;, &#39;tint&#39;, &#39;Juina&#39;, &#39;quizy&#39;, &#39;Juin&#39;] 	distance:  2
+original:  sku 	correct:  [&#39;ska&#39;, &#39;skuś&#39;, &#39;szu&#39;, &#39;stu&#39;, &#39;seku&#39;, &#39;suku&#39;, &#39;siu&#39;, &#39;skua&#39;, &#39;skup&#39;, &#39;saku&#39;, &#39;skub&#39;, &#39;skuo&#39;, &#39;su&#39;, &#39;siku&#39;, &#39;snu&#39;, &#39;soku&#39;, &#39;skuy&#39;, &#39;skuł&#39;, &#39;skuę&#39;, &#39;skud&#39;, &#39;skul&#39;, &#39;sru&#39;, &#39;ski&#39;, &#39;ku&#39;, &#39;skuć&#39;, &#39;sęku&#39;, &#39;osku&#39;, &#39;skui&#39;, &#39;isku&#39;, &#39;oku&#39;, &#39;syku&#39;, &#39;skuą&#39;, &#39;skun&#39;, &#39;skuj&#39;] 	distance:  1
+original:  realizownaej 	correct:  [&#39;realizowanej&#39;] 	distance:  2
+</pre>
+</div>
 </div>
 
 </div>
